@@ -4,6 +4,12 @@ version = "0.1.0"
 edition = "2021"
 default-run = "wb"
 license = "MIT"
+repository = "https://github.com/hypercodec/web-bench"
+authors = ["HyperCodec"]
+description = "A small tool to benchmark webservers"
+readme = "README.md"
+keyword = ["cli", "benchmark", "webserver"]
+categories = ["command-line-interface", "development-tools", "network-programming"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
