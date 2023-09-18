@@ -3,23 +3,37 @@ use std::thread;
 use std::time::{Duration, Instant};
 
 use clap::Parser;
-use url::Url;
 use env_logger::Env;
+use url::Url;
 
-use log::{info, error, debug};
+use log::{debug, error, info};
 use reqwest::blocking::{Client, Request};
 use reqwest::Method;
 
 #[derive(Parser, Debug, Clone)]
-#[command(name = "wb", author = "HyperCodec", about = "A simple tool to bench server connections")]
+#[command(
+    name = "wb",
+    author = "HyperCodec",
+    about = "A simple tool to bench server connections"
+)]
 struct Cli {
     #[clap(short, long, help = "The server you want to ping")]
     url: Url,
 
-    #[clap(short, long, help = "How long you want to ping the server for", default_value = "30")]
+    #[clap(
+        short,
+        long,
+        help = "How long you want to ping the server for",
+        default_value = "30"
+    )]
     secs: u64,
 
-    #[clap(short, long, help = "How many threads you want to use", default_value = "1")]
+    #[clap(
+        short,
+        long,
+        help = "How many threads you want to use",
+        default_value = "1"
+    )]
     thread_count: usize,
 }
 
@@ -43,7 +57,7 @@ fn main() {
     let unsuccessful_count = results.iter().map(|r| r.unsuccessful_count).sum::<u64>();
 
     info!("Requests sent: {req_count}");
-    
+
     let successful_count = req_count - unsuccessful_count;
     info!("Successful requests: {successful_count}");
 
@@ -96,7 +110,7 @@ fn bench(args: Cli) -> Vec<BenchResult> {
                             debug!("Unsuccessful response ({})", s);
                             unsuccessful_count += 1;
                         }
-                    },
+                    }
                     Err(err) => {
                         error!("Error sending request: {}", err);
                         unsuccessful_count += 1;
@@ -107,7 +121,11 @@ fn bench(args: Cli) -> Vec<BenchResult> {
             }
 
             // send yummy result
-            tx.send(BenchResult { req_count, unsuccessful_count }).expect("Failed to send results across channel");
+            tx.send(BenchResult {
+                req_count,
+                unsuccessful_count,
+            })
+            .expect("Failed to send results across channel");
         });
 
         handles.push(h);
