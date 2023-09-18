@@ -18,4 +18,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Check formatting
-        run: cargo fmt -c
+        run: cargo fmt --check
