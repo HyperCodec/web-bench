@@ -112,7 +112,7 @@ fn bench(args: Cli) -> Vec<BenchResult> {
                         }
                     }
                     Err(err) => {
-                        error!("Error sending request: {}", err);
+                        error!("{}", err);
                         unsuccessful_count += 1;
                     }
                 }
