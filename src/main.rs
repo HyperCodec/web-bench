@@ -14,7 +14,7 @@ use reqwest::Method;
 #[command(
     name = "wb",
     author = "HyperCodec",
-    about = "A simple tool to bench server connections"
+    about = "A small tool to benchmark webservers"
 )]
 struct Cli {
     #[clap(short, long, help = "The server you want to ping")]
