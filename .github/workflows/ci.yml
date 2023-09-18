@@ -1,0 +1,21 @@
+name: CI
+
+on: [push]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check with Cargo
+        run: cargo check
+
+  fmt:
+    runs-on: ubuntu-latest
+    needs: check
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check formatting
+        run: cargo fmt -c
